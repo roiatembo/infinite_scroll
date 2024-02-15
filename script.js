@@ -6,9 +6,8 @@ let totalImages = 0;
 let photosArray = [];
 
 // Unsplash api
-const count = 10;
-const apiKey = "oZ1RWDX3sQ3_VeS33GhgPWaNpf09xnVrnGGTXaLma64";
-const apiUrl = "https://api.unsplash.com/photos/?client_id=oZ1RWDX3sQ3_VeS33GhgPWaNpf09xnVrnGGTXaLma64";
+const count = 5;
+const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 //check if all images are loaded
 function imageLoaded() {
@@ -29,7 +28,7 @@ function setAttributes(element, attributes) {
 
 
 //create elements for links
-function displayPhotos() {
+function displayPhotos(photosArray) {
   totalImages = photosArray.length;
   imagesLoaded = 0;
   //foreach method
@@ -48,6 +47,7 @@ function displayPhotos() {
     img.addEventListener('load', imageLoaded);
     item.appendChild(img);
     imageContainer.appendChild(item);
+    console.log(photo.alt_description)
   })
 }
 
@@ -57,7 +57,7 @@ async function getPhotos() {
   try {
     const response = await fetch(apiUrl);
     const photosArray = await response.json();
-    displayPhotos();
+    displayPhotos(photosArray);
   } catch (error) {
     //error
   }
